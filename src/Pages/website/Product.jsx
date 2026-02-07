@@ -1,10 +1,5 @@
 import Card from "../../components/website/Card/Card";
 
-import cake1 from "../../assets/images/Product-img/product1.jpg";
-import cake2 from "../../assets/images/Product-img/product2.jpg";
-import cake3 from "../../assets/images/Product-img/product3.jpg";
-import cake4 from "../../assets/images/Product-img/product4.jpg";
-
 
 
 function Product() {
@@ -13,29 +8,29 @@ function Product() {
       id: 1,
       name: "Chocolate Cake",
       price: 499,
-      image:
-       cake1,
+      image:  "/assets/images/product-img/product1.webp",
+      
     },
     {
       id: 2,
       name: "Strawberry Cake",
       price: 549,
-      image:
-       cake2,
+      image: "/assets/images/product-img/product2.webp",
+   
     },
     {
       id: 3,
       name: "Vanilla Cake",
       price: 399,
-      image:
-       cake3,
+      image: "/assets/images/product-img/product3.webp",
+    
     },
     {
       id: 4,
       name: "Black Forest Cake",
       price: 599,
-      image:
-        cake4,
+      image: "/assets/images/product-img/product1.webp",
+      
     },
   ];
 

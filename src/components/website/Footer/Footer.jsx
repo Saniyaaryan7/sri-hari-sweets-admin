@@ -1,9 +1,4 @@
-import foot1 from "../../../assets/images/Footer-img/foot1.jpg";
-import foot2 from "../../../assets/images/Footer-img/foot2.jpg";
-import foot3 from "../../../assets/images/Footer-img/foot3.jpg";
-import foot4 from "../../../assets/images/Footer-img/foot4.jpg";
-import foot5 from "../../../assets/images/Footer-img/foot5.jpg";
-import foot6 from "../../../assets/images/Footer-img/foot6.jpg";
+
 
 import {
   FaFacebookF,
@@ -79,17 +74,19 @@ function Footer() {
 
               <div className="grid grid-cols-3 gap-4">
                {[
-  foot1,
-  foot2,
-  foot3,
-  foot4,
-  foot5,
-  foot6,
+  "/assets/images/footer-img/foot1.webp",
+  "/assets/images/footer-img/foot2.webp",
+  "/assets/images/footer-img/foot3.webp",
+  "/assets/images/footer-img/foot4.webp",
+  "/assets/images/footer-img/foot5.webp",
+  "/assets/images/footer-img/foot6.webp",
 ].map((img, i) => (
   <div key={i} className="overflow-hidden rounded-md">
     <img
       src={img}
       alt="sweet"
+       loading="lazy"
+      decoding="async"
       className="w-full h-24 object-cover hover:scale-110 transition"
     />
   </div>

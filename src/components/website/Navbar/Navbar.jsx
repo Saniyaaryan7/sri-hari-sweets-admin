@@ -6,9 +6,6 @@ import { useRef, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 import NavLinks from "./NavLink";
-// import logo from "../../../assets/logo/logo.png";
-// import hamburger from "../../../assets/icons/Hamburger.svg";
-// import searchIcon from "../../../assets/icons/Searchbar.svg";
 
 
 import {
@@ -170,12 +167,12 @@ function Navbar() {
 
           {/* Hamburger */}
           <button onClick={() => setOpen(true)}>
-            <img src="assets/icons/hamburger.svg" alt="Menu" className="w-7 h-7" />
+            <img src="/assets/icons/hamburger.svg" alt="Menu" className="w-7 h-7" />
           </button>
 
           {/* Logo */}
           <NavLink to="/app">
-            <img src="/assets/logo/Logo.webp" alt="Logo" className="h-14" />
+            <img src="/assets/logo/logo.webp" alt="Logo" className="h-14" />
           </NavLink>
 
           {/* Shop */}
@@ -227,57 +224,60 @@ function Navbar() {
         
 <div className="p-4">
 
-{user && (
-  <div className="px-5 py-4 border-b">
-    {/* User info */}
-    <div className="flex items-center gap-3">
-      
-      {/* Avatar */}
-      <div className="w-10 h-10 rounded-full bg-red-600
-                      flex items-center justify-center text-white">
-        <User size={18} />
+<div className="px-5 py-4 border-b">
+  {user ? (
+    <>
+      {/* LOGGED IN UI */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white">
+          <User size={18} />
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-sm font-semibold truncate">{user.name}</p>
+          <p className="text-xs text-gray-500 truncate">{user.email}</p>
+        </div>
       </div>
 
-      <div className="min-w-0">
-        <p className="text-sm font-semibold truncate">
-          {user.name}
-        </p>
-        <p className="text-xs text-gray-500 truncate">
-          {user.email}
-        </p>
+      <div className="mt-4 flex gap-3">
+        <button
+          onClick={() => {
+            setOpen(false);
+            navigate("/app/profile");
+          }}
+          className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
+        >
+          My Profile
+        </button>
+
+        <button
+          onClick={() => {
+            setOpen(false);
+            logout();
+            navigate("/login");
+          }}
+          className="flex-1 py-2 text-sm rounded-lg bg-red-600 text-white"
+        >
+          Logout
+        </button>
       </div>
-    </div>
-
-    {/* Actions */}
-    <div className="mt-4 flex gap-3">
-     <button
-  onClick={() => {
-    setOpen(false);
-    setTimeout(() => {
-      navigate("/app/profile");
-    }, 0);
-  }}
-  className="flex-1 py-2 text-sm rounded-lg
-             bg-gray-100 hover:bg-gray-200 transition"
->
-  My Profile
-</button>
-
-
+    </>
+  ) : (
+    <>
+      {/* LOGGED OUT UI */}
       <button
         onClick={() => {
           setOpen(false);
-          logout();
           navigate("/login");
         }}
-        className="flex-1 py-2 text-sm rounded-lg
-                   bg-red-600 text-white hover:bg-red-700 transition"
+        className="w-full py-2 rounded-lg bg-red-600 text-white text-sm"
       >
-        Logout
+        Login
       </button>
-    </div>
-  </div>
-)}
+    </>
+  )}
+</div>
+
 
 </div>
 

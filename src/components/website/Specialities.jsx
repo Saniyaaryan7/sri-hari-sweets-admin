@@ -1,27 +1,24 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import cakeImage from "../../assets/images/Special-img/spec-cake.jpg";
-import chocolateImage from "../../assets/images/Special-img/spec-choco.jpg";
-import birthdayImage from "../../assets/images/Special-img/spec-birth.jpg";
-import magic from "../../assets/images/special-img/magic.avif";
+
 
 function Specialist() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const items = [
     {
-      img: cakeImage,
+      img:  "/assets/images/special-img/spec-cake.webp",
       title: "Cakes",
       link: "/app/shop/category/cakes",
     },
     {
-      img: chocolateImage,
+      img: "/assets/images/special-img/spec-choco.webp",
       title: "Chocolates",
       link: "/app/shop/category/chocolate",
     },
     {
-      img: birthdayImage,
+      img: "/assets/images/special-img/spec-birth.webp",
       title: "Happy Birthday",
       link: "/app/shop/category/birthday",
     },
@@ -62,6 +59,8 @@ function Specialist() {
                     <img
                       src={item.img}
                       alt={item.title}
+                       loading="lazy"
+                       decoding="async"
                       className="w-28 h-28 object-cover rounded-full"
                     />
                   </div>
@@ -103,6 +102,8 @@ function Specialist() {
                       <img
                         src={item.img}
                         alt={item.title}
+                         loading="lazy"
+                         decoding="async"
                         className="w-28 h-28 object-cover rounded-full"
                       />
                     </div>
@@ -135,7 +136,9 @@ function Specialist() {
       {/* ================= MAGIC PROCESS ================= */}
       <section className="relative w-screen">
         <img
-          src={magic}
+          src="/assets/images/special-img/magic.webp"
+           loading="lazy"
+           decoding="async"
           alt="Cake Magic Process"
           className="w-full h-[30vh] md:h-[50vh] object-cover"
         />

@@ -1,8 +1,4 @@
-import Cake_bg from "../../assets/images/About-img/about-bg.jpg";
-import storycake from "../../assets/images/Hero-img/slide1.jpg";
-import ourMission from "../../assets/images/About-img/ourMission.jpg";
 
-import Banner from "../../assets/images/Contact-img/contact-bg.jpg";
 
 
 export default function About() {
@@ -12,7 +8,9 @@ export default function About() {
       {/* ===== TOP BANNER ===== */}
     <section className="relative w-full h-[45vh] md:h-[60vh] overflow-hidden">
   <img
-    src={Banner}
+    src="/assets/images/contact-img/contact-bg.webp"
+     loading="eager"
+  decoding="async"
     alt="Bakery Banner"
     className="w-full h-full object-cover"
   />
@@ -38,7 +36,9 @@ export default function About() {
       <section className="relative py-20 ">
   {/* Background Image */}
   <img
-    src={Cake_bg}
+    src="/assets/images/about-img/about-bg.webp"
+    loading="lazy"
+    decoding="async"
     alt="Cake Background"
     className="absolute inset-0 w-full h-full object-cover"
   />
@@ -66,7 +66,9 @@ export default function About() {
 
  <div className="overflow-hidden rounded-2xl shadow">
     <img
-      src={storycake}
+      src="/assets/images/hero-img/slide1.webp"
+       loading="lazy"
+  decoding="async"
       alt="Our Cakes"
       className="w-full h-full object-cover hover:scale-105 transition"
     />
@@ -78,7 +80,9 @@ export default function About() {
      <section className="relative py-24 overflow-hidden">
   {/* Background Image */}
   <img
-    src={ourMission}
+    src="/assets/images/about-img/ourMission.webp"
+     loading="lazy"
+  decoding="async"
     alt="Baking Process"
     className="absolute inset-0 w-full h-full object-cover"
   />
@@ -112,8 +116,10 @@ export default function About() {
     <section className="relative py-28 overflow-hidden">
   {/* Background Image */}
   <img
-    src={Cake_bg}
+    src="/assets/images/about-img/about-bg.webp"
     alt="Our Bakery"
+     loading="lazy"
+  decoding="async"
     className="absolute inset-0 w-full h-full object-cover"
   />
 
