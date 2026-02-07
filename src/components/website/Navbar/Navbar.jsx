@@ -6,9 +6,9 @@ import { useRef, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 import NavLinks from "./NavLink";
-import logo from "../../../assets/logo/logo.png";
-import hamburger from "../../../assets/icons/Hamburger.svg";
-import searchIcon from "../../../assets/icons/Searchbar.svg";
+// import logo from "../../../assets/logo/logo.png";
+// import hamburger from "../../../assets/icons/Hamburger.svg";
+// import searchIcon from "../../../assets/icons/Searchbar.svg";
 
 
 import {
@@ -62,7 +62,7 @@ function Navbar() {
           className="absolute left-1/2 -translate-x-1/2 hidden md:block"
         >
           <img
-            src={logo}
+            src="/assets/logo/logo.webp"
             alt="Sri Hari Sweets"
             className="max-h-16 lg:max-h-20 object-contain"
           />
@@ -82,7 +82,7 @@ function Navbar() {
                          focus:ring-2 focus:ring-gray-400 text-sm  "
             />
             <img
-              src={searchIcon}
+              src="/assets/icons/searchbar.svg"
               alt="Search"
               className="w-4 h-4 absolute right-4 top-1/2  opacity-60  -translate-y-1/2"
             />
@@ -170,12 +170,12 @@ function Navbar() {
 
           {/* Hamburger */}
           <button onClick={() => setOpen(true)}>
-            <img src={hamburger} alt="Menu" className="w-7 h-7" />
+            <img src="assets/icons/hamburger.svg" alt="Menu" className="w-7 h-7" />
           </button>
 
           {/* Logo */}
           <NavLink to="/app">
-            <img src={logo} alt="Logo" className="h-14" />
+            <img src="/assets/logo/Logo.webp" alt="Logo" className="h-14" />
           </NavLink>
 
           {/* Shop */}
@@ -198,7 +198,7 @@ function Navbar() {
             className="flex-1 px-4 text-sm outline-none"
           />
           <button className="px-4 bg-red-600 h-full flex items-center">
-            <img src={searchIcon} alt="Search" className="w-4 h-4 invert" />
+            <img src="/assets/icons/searchbar.svg" alt="Search" className="w-4 h-4 invert" />
           </button>
         </div>
       </div>
@@ -220,7 +220,7 @@ function Navbar() {
                       ${open ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="flex justify-center py-6 border-b">
-            <img src={logo} alt="Logo" className="h-14" />
+            <img src="/assets/logo/logo.webp" alt="Logo" className="h-14" />
           </div>
 
           {/* ===== MOBILE PROFILE  ===== */}
