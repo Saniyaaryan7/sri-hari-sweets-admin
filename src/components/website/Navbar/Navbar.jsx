@@ -6,9 +6,9 @@ import { useRef, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 import NavLinks from "./NavLink";
-import logo from "../../../assets/logo/logo.png";
-import hamburger from "../../../assets/icons/Hamburger.svg";
-import searchIcon from "../../../assets/icons/Searchbar.svg";
+// import logo from "../../../assets/logo/logo.png";
+// import hamburger from "../../../assets/icons/Hamburger.svg";
+// import searchIcon from "../../../assets/icons/Searchbar.svg";
 
 
 import {
