@@ -5,6 +5,7 @@ import cakeImage from "../../assets/images/Special-img/spec-cake.jpg";
 import chocolateImage from "../../assets/images/Special-img/spec-choco.jpg";
 import birthdayImage from "../../assets/images/Special-img/spec-birth.jpg";
 import magic from "../../assets/images/special-img/magic.avif";
+import magic from "../../assets/images/Special-img/magic.webp";
 
 function Specialist() {
   const [activeIndex, setActiveIndex] = useState(0);
