@@ -21,12 +21,38 @@ import {
 
 
 function Navbar() {
+  const [search, setSearch] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [open, setOpen] = useState(false);          
   const [profileOpen, setProfileOpen] = useState(false); // profile dropdown
 
   const navigate = useNavigate();
   const { user, logout } = useAuth(); // auth state
   const dropdownRef = useRef(null);
+
+
+const handleSearch = (e) => {
+  e.preventDefault();
+  if (!search.trim()) return;
+
+  navigate(`/app/shop?q=${search}`);
+  setSearch("");
+};
+
+const products = [
+  "Chocolate Cake",
+  "Strawberry Cake",
+  "Vanilla Cake",
+  "Black Forest Cake",
+  "Pineapple Cake",
+  "Red Velvet Cake",
+];
+
+
+const suggestions = products.filter((item) =>
+  item.toLowerCase().includes(search.toLowerCase())
+);
+
 
   useEffect(() => {
   const handleClickOutside = (e) => {
@@ -69,21 +95,54 @@ function Navbar() {
         {/* RIGHT SIDE (desktop) */}
         <div className="hidden md:flex items-center gap-6 ml-auto">
 
-     
-          {/* Search */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search cakes..."
-              className="w-48 px-4 py-2 pr-10 rounded-full border border-black
-                         focus:ring-2 focus:ring-gray-400 text-sm  "
-            />
-            <img
-              src="/assets/icons/searchbar.svg"
-              alt="Search"
-              className="w-4 h-4 absolute right-4 top-1/2  opacity-60  -translate-y-1/2"
-            />
+     {/* -------Searchbar----------- */}
+         <div className="relative">
+  <input
+    type="text"
+    placeholder="Search cakes..."
+    value={search}
+    onChange={(e) => {
+      setSearch(e.target.value);
+      setShowSuggestions(true);
+    }}
+    className="w-48 px-4 py-2 pr-10 rounded-full border border-black
+               focus:ring-2 focus:ring-gray-400 text-sm"
+  />
+
+  <img
+    src="/assets/icons/searchbar.svg"
+    alt="Search"
+    className="w-4 h-4 absolute right-4 top-1/2 opacity-60 -translate-y-1/2"
+  />
+
+  {/* ===== SUGGESTIONS ===== */}
+  {showSuggestions && search && (
+    <div className="absolute top-12 left-0 w-full bg-white border rounded-xl shadow-lg z-50">
+      {suggestions.length > 0 ? (
+        suggestions.map((item, i) => (
+          <div
+            key={i}
+            onClick={() => {
+              navigate(`/app/shop?q=${item}`);
+              setSearch("");
+              setShowSuggestions(false);
+            }}
+            className="px-4 py-2 text-sm cursor-pointer
+                       hover:bg-red-50 hover:text-red-600"
+          >
+            {item}
           </div>
+        ))
+      ) : (
+        <p className="px-4 py-2 text-sm text-gray-400">
+          No results found
+        </p>
+      )}
+    </div>
+  )}
+</div>
+
+
 
       
          {/* ================= AUTH UI ================= */}
@@ -186,19 +245,62 @@ function Navbar() {
         </div>
       </div>
 
-      {/* ================= MOBILE SEARCH ================= */}
-      <div className="md:hidden px-4 pb-3 bg-white">
-        <div className="flex items-center h-10 border border-gray-800 rounded-xl overflow-hidden">
-          <input
-            type="text"
-            placeholder="Search cakes..."
-            className="flex-1 px-4 text-sm outline-none"
-          />
-          <button className="px-4 bg-red-600 h-full flex items-center">
-            <img src="/assets/icons/searchbar.svg" alt="Search" className="w-4 h-4 invert" />
-          </button>
-        </div>
-      </div>
+     {/* ================= MOBILE SEARCH ================= */}
+
+{/* ================= MOBILE SEARCH ================= */}
+<div className="md:hidden px-4 pb-3 bg-white relative">
+  <div className="flex items-center h-10 border border-gray-800 rounded-xl overflow-hidden">
+    <input
+      type="text"
+      placeholder="Search cakes..."
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        setShowSuggestions(true);
+      }}
+      className="flex-1 px-4 text-sm outline-none"
+    />
+
+    <button
+      onClick={handleSearch}
+      className="px-4 bg-red-600 h-full flex items-center"
+    >
+      <img
+        src="/assets/icons/searchbar.svg"
+        alt="Search"
+        className="w-4 h-4 invert"
+      />
+    </button>
+  </div>
+
+  {/* ===== MOBILE SUGGESTIONS ===== */}
+  {showSuggestions && search && (
+    <div className="absolute top-12 left-4 right-4 bg-white border rounded-xl shadow-lg z-50">
+      {suggestions.length > 0 ? (
+        suggestions.map((item, i) => (
+          <div
+            key={i}
+            onClick={() => {
+              navigate(`/app/shop?q=${item}`);
+              setSearch("");
+              setShowSuggestions(false);
+            }}
+            className="px-4 py-2 text-sm cursor-pointer
+                       hover:bg-red-50 hover:text-red-600"
+          >
+            {item}
+          </div>
+        ))
+      ) : (
+        <p className="px-4 py-2 text-sm text-gray-400">
+          No results found
+        </p>
+      )}
+    </div>
+  )}
+</div>
+
+
 
       {/* ================= MOBILE MENU ================= */}
       <div
