@@ -1,3 +1,15 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# Prisma
+backend/generated/
+/backend/prisma/migrations/
+/backend/prisma/*.db
+
 # Logs
 logs
 *.log
@@ -6,6 +18,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+backend/prisma_error.log
+backend/seed_error*.log
+backend/seed_error*.log
 
 node_modules
 dist

@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        BigInt   @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cake {
+  id        BigInt   @id
+  cakeId    String   @unique
+  name      String
+  price     Float
+  strike    Float?
+  image     String
+  status    String   @default("Active")
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id            BigInt   @id
+  name          String
+  superCategory String
+  image         String
+  status        String   @default("Active")
+}
+
+model SuperCategory {
+  id     BigInt @id
+  name   String
+  image  String
+  status String @default("Active")
+}
+
+model Order {
+  id            BigInt   @id
+  userId        String
+  items         Json
+  address       String
+  total         Float
+  paymentMethod String
+  status        String   @default("Pending")
+  createdAt     DateTime @default(now())
+}
+
+model Cart {
+  id     BigInt @id @default(autoincrement())
+  userId String @unique
+  items  Json
+}
+
+model Message {
+  id        BigInt   @id
+  createdAt DateTime @default(now())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  reply     Json?
+}
+
+model Hero {
+  id       BigInt  @id
+  image    String
+  title    String
+  subtitle String
+  link     String?
+  status   String  @default("Active")
+}
+
+model Gallery {
+  id       BigInt  @id
+  image    String
+  title    String?
+  category String?
+}
+
+model Speciality {
+  id    BigInt @id
+  image String
+  title String
+  link  String
+}
+
+model Contact {
+  id      Int    @id @default(1)
+  address String
+  phone   String
+  email   String
+  socials Json
+}
+
+model About {
+  id      Int  @id @default(1)
+  banner  Json
+  story   Json
+  mission Json
+  bakery  Json
+  values  Json
+}
