@@ -110,9 +110,9 @@ export default function Login() {
             </span>
           </p>
 
-          <p className="text-xs text-center text-gray-400">
+          {/* <p className="text-xs text-center text-gray-400">
             Admin → admin@gmail.com / admin123
-          </p>
+          </p> */}
         </form>
       </section>
     </main>
