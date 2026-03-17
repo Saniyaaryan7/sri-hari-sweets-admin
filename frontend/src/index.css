@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* WEBSITE ONLY */
+.website h1,
+.website h2,
+.website p {
+  /* website styles */
+}
+
+/* ADMIN ONLY */
+.admin h1,
+.admin h2,
+.admin button {
+  /* admin styles */
+}
+
+
+
+html, body, #root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Disable overscroll glow */
+html, body {
+  overscroll-behavior-x: none;
+}
+
+/* Reduce mobile scroll indicator behavior */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar fully */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html,
+body {
+  overflow-x: hidden;
+}
