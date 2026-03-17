@@ -34,7 +34,7 @@ const SpecialitiesManagement = () => {
 
         setIsUploading(true);
         try {
-            const res = await axios.post("http://localhost:5000/api/upload", formDataUpload);
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/upload`, formDataUpload);
             setFormData({ ...formData, image: res.data.path });
             showFeedback("success", "Image uploaded successfully!");
         } catch (err) {

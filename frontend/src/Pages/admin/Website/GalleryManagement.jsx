@@ -25,7 +25,7 @@ export default function GalleryManagement() {
 
     setUploading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/upload", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload`, {
         method: "POST",
         body: formData,
       });

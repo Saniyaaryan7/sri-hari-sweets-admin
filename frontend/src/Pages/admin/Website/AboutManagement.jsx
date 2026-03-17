@@ -30,7 +30,7 @@ export default function AboutManagement() {
 
     setUploading({ section, index });
     try {
-      const res = await axios.post("http://localhost:5000/api/upload", formDataUpload);
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/upload`, formDataUpload);
       const newPath = res.data.path;
 
       const updated = { ...formData };
