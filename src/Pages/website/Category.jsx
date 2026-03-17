@@ -4,12 +4,7 @@ import { useParams } from "react-router-dom";
 import { Cake } from "lucide-react";
 
 
-import cake1 from "../../assets/images/Product-img/product1.jpg";
-import cake2 from "../../assets/images/Product-img/product2.jpg";
-import cake3 from "../../assets/images/Product-img/product3.jpg";
-import cake4 from "../../assets/images/Product-img/product4.jpg";
 
-import bannerImg from "../../assets/images/Product-img/product1.jpg";
 
 // categories list
 const categories = [
@@ -29,7 +24,7 @@ const products = [
     price: 768,
     oldPrice: 876,
     category: "Eggless Cake",
-    image: cake1,
+    image: "/assets/images/product-img/product1.webp",
   },
   {
     id: 2,
@@ -38,7 +33,7 @@ const products = [
     price: 599,
     oldPrice: 699,
     category: "Heart Cake",
-    image: cake2,
+    image: "/assets/images/product-img/product2.webp",
   },
   {
     id: 3,
@@ -47,7 +42,7 @@ const products = [
     price: 649,
     oldPrice: 749,
     category: "Midnight Cakes",
-    image: cake3,
+    image: "/assets/images/product-img/product3.webp",
   },
   {
     id: 4,
@@ -56,7 +51,7 @@ const products = [
     price: 648,
     oldPrice: 749,
     category: "Midnight Cakes",
-    image: cake4,
+    image: "/assets/images/product-img/product4.webp",
   },
 ];
 
@@ -97,7 +92,9 @@ function Category() {
       {/* ================= TOP BANNER ================= */}
       <div className="relative h-[45vh] sm:h-[40vh] md:h-[45vh] w-full overflow-hidden">
         <img
-          src={bannerImg}
+          src="/assets/images/product-img/product1.webp"
+           loading="eager"
+           decoding="async"
           alt="Category Banner"
           className="w-full h-full object-cover object-[50%_60%] md:object-center"
         />
@@ -166,6 +163,8 @@ function Category() {
                 <img
                   src={item.image}
                   alt={item.name}
+                   loading="lazy"
+                  decoding="async"
                   className="w-full h-44 object-cover"
                 />
 

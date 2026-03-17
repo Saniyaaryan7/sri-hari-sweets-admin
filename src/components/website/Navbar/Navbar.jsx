@@ -6,9 +6,6 @@ import { useRef, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 import NavLinks from "./NavLink";
-// import logo from "../../../assets/logo/logo.png";
-// import hamburger from "../../../assets/icons/Hamburger.svg";
-// import searchIcon from "../../../assets/icons/Searchbar.svg";
 
 
 import {
@@ -24,12 +21,38 @@ import {
 
 
 function Navbar() {
+  const [search, setSearch] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [open, setOpen] = useState(false);          
   const [profileOpen, setProfileOpen] = useState(false); // profile dropdown
 
   const navigate = useNavigate();
   const { user, logout } = useAuth(); // auth state
   const dropdownRef = useRef(null);
+
+
+const handleSearch = (e) => {
+  e.preventDefault();
+  if (!search.trim()) return;
+
+  navigate(`/app/shop?q=${search}`);
+  setSearch("");
+};
+
+const products = [
+  "Chocolate Cake",
+  "Strawberry Cake",
+  "Vanilla Cake",
+  "Black Forest Cake",
+  "Pineapple Cake",
+  "Red Velvet Cake",
+];
+
+
+const suggestions = products.filter((item) =>
+  item.toLowerCase().includes(search.toLowerCase())
+);
+
 
   useEffect(() => {
   const handleClickOutside = (e) => {
@@ -62,7 +85,7 @@ function Navbar() {
           className="absolute left-1/2 -translate-x-1/2 hidden md:block"
         >
           <img
-            src={"src/assets/logo/logo.png"}
+            src="/assets/logo/logo.webp"
             alt="Sri Hari Sweets"
             className="max-h-16 lg:max-h-20 object-contain"
           />
@@ -72,21 +95,54 @@ function Navbar() {
         {/* RIGHT SIDE (desktop) */}
         <div className="hidden md:flex items-center gap-6 ml-auto">
 
-     
-          {/* Search */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search cakes..."
-              className="w-48 px-4 py-2 pr-10 rounded-full border border-black
-                         focus:ring-2 focus:ring-gray-400 text-sm  "
-            />
-            <img
-              src={"src/assets/Icons/Searchbar.svg"}
-              alt="Search"
-              className="w-4 h-4 absolute right-4 top-1/2  opacity-60  -translate-y-1/2"
-            />
+     {/* -------Searchbar----------- */}
+         <div className="relative">
+  <input
+    type="text"
+    placeholder="Search cakes..."
+    value={search}
+    onChange={(e) => {
+      setSearch(e.target.value);
+      setShowSuggestions(true);
+    }}
+    className="w-48 px-4 py-2 pr-10 rounded-full border border-black
+               focus:ring-2 focus:ring-gray-400 text-sm"
+  />
+
+  <img
+    src="/assets/icons/searchbar.svg"
+    alt="Search"
+    className="w-4 h-4 absolute right-4 top-1/2 opacity-60 -translate-y-1/2"
+  />
+
+  {/* ===== SUGGESTIONS ===== */}
+  {showSuggestions && search && (
+    <div className="absolute top-12 left-0 w-full bg-white border rounded-xl shadow-lg z-50">
+      {suggestions.length > 0 ? (
+        suggestions.map((item, i) => (
+          <div
+            key={i}
+            onClick={() => {
+              navigate(`/app/shop?q=${item}`);
+              setSearch("");
+              setShowSuggestions(false);
+            }}
+            className="px-4 py-2 text-sm cursor-pointer
+                       hover:bg-red-50 hover:text-red-600"
+          >
+            {item}
           </div>
+        ))
+      ) : (
+        <p className="px-4 py-2 text-sm text-gray-400">
+          No results found
+        </p>
+      )}
+    </div>
+  )}
+</div>
+
+
 
       
          {/* ================= AUTH UI ================= */}
@@ -170,12 +226,12 @@ function Navbar() {
 
           {/* Hamburger */}
           <button onClick={() => setOpen(true)}>
-            <img src={"../../../assets/icons/Hamburger.svg"} alt="Menu" className="w-7 h-7" />
+            <img src="/assets/icons/hamburger.svg" alt="Menu" className="w-7 h-7" />
           </button>
 
           {/* Logo */}
           <NavLink to="/app">
-            <img src={"src/assets/logo/logo.png"} alt="Logo" className="h-14" />
+            <img src="/assets/logo/logo.webp" alt="Logo" className="h-14" />
           </NavLink>
 
           {/* Shop */}
@@ -189,19 +245,62 @@ function Navbar() {
         </div>
       </div>
 
-      {/* ================= MOBILE SEARCH ================= */}
-      <div className="md:hidden px-4 pb-3 bg-white">
-        <div className="flex items-center h-10 border border-gray-800 rounded-xl overflow-hidden">
-          <input
-            type="text"
-            placeholder="Search cakes..."
-            className="flex-1 px-4 text-sm outline-none"
-          />
-          <button className="px-4 bg-red-600 h-full flex items-center">
-            <img src={"../../../assets/icons/Searchbar.svg"} alt="Search" className="w-4 h-4 invert" />
-          </button>
-        </div>
-      </div>
+     {/* ================= MOBILE SEARCH ================= */}
+
+{/* ================= MOBILE SEARCH ================= */}
+<div className="md:hidden px-4 pb-3 bg-white relative">
+  <div className="flex items-center h-10 border border-gray-800 rounded-xl overflow-hidden">
+    <input
+      type="text"
+      placeholder="Search cakes..."
+      value={search}
+      onChange={(e) => {
+        setSearch(e.target.value);
+        setShowSuggestions(true);
+      }}
+      className="flex-1 px-4 text-sm outline-none"
+    />
+
+    <button
+      onClick={handleSearch}
+      className="px-4 bg-red-600 h-full flex items-center"
+    >
+      <img
+        src="/assets/icons/searchbar.svg"
+        alt="Search"
+        className="w-4 h-4 invert"
+      />
+    </button>
+  </div>
+
+  {/* ===== MOBILE SUGGESTIONS ===== */}
+  {showSuggestions && search && (
+    <div className="absolute top-12 left-4 right-4 bg-white border rounded-xl shadow-lg z-50">
+      {suggestions.length > 0 ? (
+        suggestions.map((item, i) => (
+          <div
+            key={i}
+            onClick={() => {
+              navigate(`/app/shop?q=${item}`);
+              setSearch("");
+              setShowSuggestions(false);
+            }}
+            className="px-4 py-2 text-sm cursor-pointer
+                       hover:bg-red-50 hover:text-red-600"
+          >
+            {item}
+          </div>
+        ))
+      ) : (
+        <p className="px-4 py-2 text-sm text-gray-400">
+          No results found
+        </p>
+      )}
+    </div>
+  )}
+</div>
+
+
 
       {/* ================= MOBILE MENU ================= */}
       <div
@@ -220,64 +319,67 @@ function Navbar() {
                       ${open ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="flex justify-center py-6 border-b">
-            <img src={"src/assets/logo/logo.png"} alt="Logo" className="h-14" />
+            <img src="/assets/logo/logo.webp" alt="Logo" className="h-14" />
           </div>
 
           {/* ===== MOBILE PROFILE  ===== */}
         
 <div className="p-4">
 
-{user && (
-  <div className="px-5 py-4 border-b">
-    {/* User info */}
-    <div className="flex items-center gap-3">
-      
-      {/* Avatar */}
-      <div className="w-10 h-10 rounded-full bg-red-600
-                      flex items-center justify-center text-white">
-        <User size={18} />
+<div className="px-5 py-4 border-b">
+  {user ? (
+    <>
+      {/* LOGGED IN UI */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white">
+          <User size={18} />
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-sm font-semibold truncate">{user.name}</p>
+          <p className="text-xs text-gray-500 truncate">{user.email}</p>
+        </div>
       </div>
 
-      <div className="min-w-0">
-        <p className="text-sm font-semibold truncate">
-          {user.name}
-        </p>
-        <p className="text-xs text-gray-500 truncate">
-          {user.email}
-        </p>
+      <div className="mt-4 flex gap-3">
+        <button
+          onClick={() => {
+            setOpen(false);
+            navigate("/app/profile");
+          }}
+          className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
+        >
+          My Profile
+        </button>
+
+        <button
+          onClick={() => {
+            setOpen(false);
+            logout();
+            navigate("/login");
+          }}
+          className="flex-1 py-2 text-sm rounded-lg bg-red-600 text-white"
+        >
+          Logout
+        </button>
       </div>
-    </div>
-
-    {/* Actions */}
-    <div className="mt-4 flex gap-3">
-     <button
-  onClick={() => {
-    setOpen(false);
-    setTimeout(() => {
-      navigate("/app/profile");
-    }, 0);
-  }}
-  className="flex-1 py-2 text-sm rounded-lg
-             bg-gray-100 hover:bg-gray-200 transition"
->
-  My Profile
-</button>
-
-
+    </>
+  ) : (
+    <>
+      {/* LOGGED OUT UI */}
       <button
         onClick={() => {
           setOpen(false);
-          logout();
           navigate("/login");
         }}
-        className="flex-1 py-2 text-sm rounded-lg
-                   bg-red-600 text-white hover:bg-red-700 transition"
+        className="w-full py-2 rounded-lg bg-red-600 text-white text-sm"
       >
-        Logout
+        Login
       </button>
-    </div>
-  </div>
-)}
+    </>
+  )}
+</div>
+
 
 </div>
 

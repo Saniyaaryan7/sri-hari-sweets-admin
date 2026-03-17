@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
-import slide1 from "../../assets/images/Hero-img/01_slide.jpg";
-import slide2 from "../../assets/images/Hero-img/slide1.jpg";
-import slide3 from "../../assets/images/Hero-img/slide4.jpg";
+// import slide1 from "../../assets/images/Hero-img/01_slide.jpg";
+// import slide2 from "../../assets/images/Hero-img/slide1.jpg";
+// import slide3 from "../../assets/images/Hero-img/slide4.jpg";
 
 const slides = [
   {
     id: 1,
-    image: slide1,
+    image:"/assets/images/hero-img/slide1.webp",
     title: "Fresh Cakes Delivered",
     subtitle: "Eggless • Designer • Birthday Specials",
   },
   {
     id: 2,
-    image: slide2,
+    image: "/assets/images/hero-img/slide2.webp",
     title: "Midnight Cake Surprise",
     subtitle: "On-time delivery with perfect taste",
   },
   {
     id: 3,
-    image: slide3,
+    image:"/assets/images/hero-img/slide3.webp",
     title: "Baked With Love",
     subtitle: "Premium ingredients, unforgettable flavor",
   },
@@ -53,6 +53,8 @@ function Hero() {
             {/* IMAGE */}
             <img
               src={slide.image}
+              loading={slide.id === 1 ? "eager" : "lazy"}
+              decoding="async"
               alt=""
               className="absolute inset-0 w-full h-full object-cover"
             />

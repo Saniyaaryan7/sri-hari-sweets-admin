@@ -7,7 +7,7 @@ import {
   FaPhoneAlt,
   FaEnvelope,
 } from "react-icons/fa";
-import contactBanner from "../../assets/images/Contact-img/contact-bg.jpg";
+
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export default function Contact() {
@@ -15,10 +15,15 @@ export default function Contact() {
     <div className="w-full bg-[#FAFAFA] text-gray-800">
 
       {/* ===== TOP BANNER ===== */}
-      <section
-        className="relative h-[40vh] md:h-[60vh] bg-center bg-cover overflow-hidden"
-        style={{ backgroundImage: `url(${contactBanner})` }}
-      >
+      <section className="relative h-[40vh] md:h-[60vh] overflow-hidden">
+  <img
+    src="/assets/images/contact-img/contact-bg.webp"
+    alt="Contact Banner"
+    loading="eager"
+    decoding="async"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+
         <div className="absolute inset-0 bg-white/50" />
 
         <div

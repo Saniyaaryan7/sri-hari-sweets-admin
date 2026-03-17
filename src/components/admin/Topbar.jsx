@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import hamburger from "../../assets/Icons/Hamburger.svg"; 
+
 
 export default function Topbar({ toggle }) {
   const navigate = useNavigate();
@@ -20,8 +20,10 @@ export default function Topbar({ toggle }) {
           className="md:hidden bg-transparent p-0 border-none"
         >
           <img
-            src={hamburger}
+            src="/assets/icons/hamburger.svg"
             alt="menu"
+            loading="eager"
+            decoding="async"
             className="w-6 h-6"
           />
         </button>

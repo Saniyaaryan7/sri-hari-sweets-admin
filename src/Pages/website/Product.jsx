@@ -1,43 +1,51 @@
-import Card from "../../components/website/Card/Card";
+import { useSearchParams } from "react-router-dom";
 
-import cake1 from "../../assets/images/Product-img/product1.jpg";
-import cake2 from "../../assets/images/Product-img/product2.jpg";
-import cake3 from "../../assets/images/Product-img/product3.jpg";
-import cake4 from "../../assets/images/Product-img/product4.jpg";
+import Card from "../../components/website/Card/Card";
 
 
 
 function Product() {
+
+ 
+
+
   const products = [
     {
       id: 1,
       name: "Chocolate Cake",
       price: 499,
-      image:
-       cake1,
+      image:  "/assets/images/product-img/product1.webp",
+      
     },
     {
       id: 2,
       name: "Strawberry Cake",
       price: 549,
-      image:
-       cake2,
+      image: "/assets/images/product-img/product2.webp",
+   
     },
     {
       id: 3,
       name: "Vanilla Cake",
       price: 399,
-      image:
-       cake3,
+      image: "/assets/images/product-img/product3.webp",
+    
     },
     {
       id: 4,
       name: "Black Forest Cake",
       price: 599,
-      image:
-        cake4,
+      image: "/assets/images/product-img/product1.webp",
+      
     },
   ];
+
+const [searchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+
+    const filteredProducts = products.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <section className="py-14 bg-gray-50">
@@ -48,9 +56,10 @@ function Product() {
 
         {/* Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
-          {products.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
+          {filteredProducts.map((item) => (
+  <Card key={item.id} item={item} />
+))}
+
         </div>
       </div>
     </section>
