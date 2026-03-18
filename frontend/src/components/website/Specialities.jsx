@@ -1,4 +1,4 @@
-import { useAppContext } from "../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
@@ -10,17 +10,17 @@ function Specialist() {
     {
       image:  "/assets/images/Special-img/spec-cake.webp",
       title: "Cakes",
-      link: "/app/shop/category/cakes",
+      link: "/shop/category/cakes",
     },
     {
       image: "/assets/images/Special-img/spec-choco.webp",
       title: "Chocolates",
-      link: "/app/shop/category/chocolate",
+      link: "/shop/category/chocolate",
     },
     {
       image: "/assets/images/Special-img/spec-birth.webp",
       title: "Happy Birthday",
-      link: "/app/shop/category/birthday",
+      link: "/shop/category/birthday",
     },
   ];
 
@@ -57,7 +57,7 @@ function Specialist() {
                 <div className="flex flex-col items-center cursor-pointer hover:scale-105 transition">
                   <div className="w-40 h-40 rounded-full border-4 border-teal-400 flex items-center justify-center bg-white">
                     <img
-                      src={item.image}
+                      src={getImageUrl(item.image)}
                       alt={item.title}
                        loading="lazy"
                        decoding="async"
@@ -100,7 +100,7 @@ function Specialist() {
                       "
                     >
                       <img
-                        src={item.image}
+                        src={getImageUrl(item.image)}
                         alt={item.title}
                          loading="lazy"
                          decoding="async"

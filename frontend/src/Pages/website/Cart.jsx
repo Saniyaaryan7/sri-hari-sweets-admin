@@ -20,7 +20,7 @@ export default function Cart() {
         <h2 className="text-3xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
         <p className="text-gray-500 mb-8 max-w-sm">Looks like you haven't added anything to your cart yet. Let's find some delicious cakes!</p>
         <button 
-          onClick={() => navigate("/app/shop")}
+          onClick={() => navigate("/shop")}
           className="bg-rose-600 text-white px-10 py-4 rounded-full font-bold hover:bg-rose-700 transition shadow-lg"
         >
           START SHOPPING
@@ -102,7 +102,7 @@ export default function Cart() {
               </div>
 
               <button 
-                onClick={() => navigate("/app/checkout")}
+                onClick={() => navigate("/checkout")}
                 className="w-full bg-rose-600 text-white py-4 rounded-2xl font-bold hover:bg-rose-700 transition flex items-center justify-center gap-2 shadow-lg shadow-rose-100"
               >
                 PROCEED TO CHECKOUT

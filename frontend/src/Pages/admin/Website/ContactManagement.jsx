@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import { 
     Save, MapPin, Phone, Mail, 
     Facebook, Twitter, Instagram, 
     CheckCircle2, AlertCircle, Share2,
-    Globe, Clock
+    Globe, Clock, Image as ImageIcon, X, Loader2
 } from "lucide-react";
 import { FaPinterestP, FaWhatsapp } from "react-icons/fa";
 
@@ -20,20 +20,54 @@ const ContactManagement = () => {
             twitter: "",
             instagram: "",
             whatsapp: ""
-        }
+        },
+        banner: ""
     });
     const [isSaving, setIsSaving] = useState(false);
     const [feedback, setFeedback] = useState(null);
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         if (contactInfo) {
-            setFormData(contactInfo);
+            setFormData(prev => ({ 
+                ...prev, 
+                ...contactInfo,
+                socials: { ...prev.socials, ...contactInfo.socials }
+            }));
         }
     }, [contactInfo]);
 
     const showFeedback = (type, message) => {
         setFeedback({ type, message });
         setTimeout(() => setFeedback(null), 3000);
+    };
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const uploadFormData = new FormData();
+        uploadFormData.append("image", file);
+
+        setUploading(true);
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload`, {
+                method: "POST",
+                body: uploadFormData,
+            });
+            const data = await res.json();
+            if (data.path) {
+                setFormData({ ...formData, banner: data.path });
+                showFeedback("success", "Banner uploaded successfully! Click save to apply changes.");
+            } else {
+                showFeedback("error", data.message || "Upload failed");
+            }
+        } catch (err) {
+            console.error("Upload error:", err);
+            showFeedback("error", "Error uploading image");
+        } finally {
+            setUploading(false);
+        }
     };
 
     const handleSocialChange = (platform, value) => {
@@ -82,6 +116,72 @@ const ContactManagement = () => {
             <div className="flex-1 overflow-y-auto custom-scrollbar">
                 <div className="p-4 sm:p-6 lg:p-8 pt-0">
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Banner Management - Added Section */}
+                        <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+                            <div className="p-6 border-b border-gray-50 bg-gray-50/50">
+                                <h2 className="text-lg font-bold text-[#4B2E39] flex items-center gap-2">
+                                    <ImageIcon size={18} className="text-[#1F4E5F]" />
+                                    Contact Page Banner
+                                </h2>
+                            </div>
+                            <div className="p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                    <div className="relative aspect-[21/9] rounded-2xl bg-gray-100 border-2 border-dashed border-gray-200 overflow-hidden group shadow-inner">
+                                        {formData.banner ? (
+                                            <>
+                                                <img src={getImageUrl(formData.banner)} alt="Contact Banner" className="w-full h-full object-cover" />
+                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setFormData({ ...formData, banner: "" })}
+                                                        className="bg-white text-red-600 p-2 rounded-full shadow-lg transform transition active:scale-90"
+                                                    >
+                                                        <X size={20} />
+                                                    </button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-3">
+                                                <div className="p-4 bg-gray-50 rounded-full">
+                                                    <ImageIcon size={40} className="text-gray-300" />
+                                                </div>
+                                                <div className="text-center">
+                                                    <span className="block text-sm font-bold text-gray-500">No Banner Image</span>
+                                                    <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Recommended: 1920x600px</span>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {uploading && (
+                                            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center gap-3">
+                                                <Loader2 size={32} className="text-[#1F4E5F] animate-spin" />
+                                                <span className="text-xs font-black text-[#1F4E5F] tracking-widest uppercase">Uploading...</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div className="p-5 bg-[#1F4E5F]/5 rounded-2xl border border-[#1F4E5F]/10">
+                                            <h3 className="text-[#1F4E5F] font-bold text-sm mb-2">Upload Requirements</h3>
+                                            <ul className="text-xs text-gray-600 space-y-2 font-medium">
+                                                <li className="flex items-center gap-2">• Landscape orientation preferred</li>
+                                                <li className="flex items-center gap-2">• Max file size: 5MB</li>
+                                                <li className="flex items-center gap-2">• Supported formats: JPG, PNG, WEBP</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <label className="block w-full cursor-pointer group">
+                                            <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} disabled={uploading} />
+                                            <div className="w-full bg-[#1F4E5F] text-white py-4 px-6 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-[#163a47] transition shadow-lg shadow-[#1F4E5F]/20 active:scale-[0.98]">
+                                                <ImageIcon size={20} />
+                                                {formData.banner ? "Change Banner Image" : "Upload Banner Image"}
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Core Details */}
                         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
                             <div className="p-6 border-b border-gray-50 bg-gray-50/50">
@@ -183,10 +283,10 @@ const ContactManagement = () => {
                             <button
                                 type="submit"
                                 disabled={isSaving}
-                                className="bg-[#1F4E5F] text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#163a47] transition shadow-xl shadow-[#1F4E5F]/30 active:scale-95 disabled:opacity-50"
+                                className="bg-[#1F4E5F] text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#163a47] transition shadow-xl shadow-[#1F4E5F]/30 active:scale-90 disabled:opacity-50"
                             >
                                 {isSaving ? (
-                                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                                    <Loader2 size={20} className="animate-spin" />
                                 ) : (
                                     <Save size={20} />
                                 )}

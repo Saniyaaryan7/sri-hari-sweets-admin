@@ -45,7 +45,7 @@ function Category() {
       {/* ================= TOP BANNER ================= */}
       <div className="relative h-[45vh] sm:h-[40vh] md:h-[45vh] w-full overflow-hidden">
         <img
-          src="/assets/images/Product-img/product1.webp"
+          src="/assets/images/hero-img/slide1.webp"
            loading="eager"
            decoding="async"
           alt="Category Banner"

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
 export const AppContext = createContext();
@@ -24,7 +24,8 @@ export function AppProvider({ children }) {
       twitter: "",
       instagram: "",
       whatsapp: ""
-    }
+    },
+    banner: ""
   });
   const [aboutContent, setAboutContent] = useState(null);
   const [cart, setCart] = useState([]);
@@ -489,28 +490,41 @@ export function AppProvider({ children }) {
     }
   };
 
+  const value = useMemo(() => ({
+    cakes, addCake, deleteCake, getCakeById, updateCake,
+    categories, addCategory, deleteCategory, updateCategory,
+    superCategories, addSuperCategory, deleteSuperCategory, updateSuperCategory,
+    hero, addHero, updateHero, deleteHero,
+    gallery, addGalleryImage, deleteGalleryImage,
+    messages, addMessage, deleteMessage, sendReply,
+    users, fetchUsers,
+    specialities, addSpeciality, updateSpeciality, deleteSpeciality,
+    contactInfo, updateContactInfo,
+    aboutContent, updateAboutContent,
+    cart, setCart, fetchCart, addToCart, removeFromCart, updateCartQty,
+    userOrders, setUserOrders, fetchUserOrders, placeOrder,
+    allOrders, fetchAllOrders, updateOrderStatus, cancelOrder,
+    uploadImage
+  }), [
+    cakes, categories, superCategories, hero, gallery, messages, users, specialities,
+    contactInfo, aboutContent, cart, userOrders, allOrders
+  ]);
+
   return (
-    <AppContext.Provider
-      value={{
-        cakes, addCake, deleteCake, getCakeById, updateCake,
-        categories, addCategory, deleteCategory, updateCategory,
-        superCategories, addSuperCategory, deleteSuperCategory, updateSuperCategory,
-        hero, addHero, updateHero, deleteHero,
-        gallery, addGalleryImage, deleteGalleryImage,
-        messages, addMessage, deleteMessage, sendReply,
-        users, fetchUsers,
-        specialities, addSpeciality, updateSpeciality, deleteSpeciality,
-        contactInfo, updateContactInfo,
-        aboutContent, updateAboutContent,
-        cart, setCart, fetchCart, addToCart, removeFromCart, updateCartQty,
-        userOrders, setUserOrders, fetchUserOrders, placeOrder,
-        allOrders, fetchAllOrders, updateOrderStatus, cancelOrder,
-        uploadImage
-      }}
-    >
+    <AppContext.Provider value={value}>
       {children}
     </AppContext.Provider>
   );
 }
 
 export const useAppContext = () => useContext(AppContext);
+
+export const getImageUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("data:") || path.startsWith("http")) return path;
+  // If it starts with /public, it's a backend static file
+  if (path.startsWith("/public")) {
+    return `${import.meta.env.VITE_API_BASE_URL}${path}`;
+  }
+  return path;
+};

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppContext } from "../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../context/AppContext";
 
 function Hero() {
   const { hero } = useAppContext();
@@ -33,7 +33,7 @@ function Hero() {
           >
             {/* IMAGE */}
             <img
-              src={slide.image}
+              src={getImageUrl(slide.image)}
               loading={slide.id === hero[0].id ? "eager" : "lazy"}
               decoding="async"
               alt={slide.title}

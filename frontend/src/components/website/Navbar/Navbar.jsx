@@ -23,7 +23,7 @@ const handleSearch = (e) => {
   e.preventDefault();
   if (!search.trim()) return;
 
-  navigate(`/app/shop?q=${search}`);
+  navigate(`/shop?q=${search}`);
   setSearch("");
 };
 
@@ -69,7 +69,7 @@ const suggestions = products.filter((item) =>
 
         {/* CENTER LOGO */}
         <NavLink
-          to="/app"
+          to="/"
           className="absolute left-1/2 -translate-x-1/2 hidden md:block"
         >
           <img
@@ -111,7 +111,7 @@ const suggestions = products.filter((item) =>
                     <div
                       key={i}
                       onClick={() => {
-                        navigate(`/app/shop?q=${item}`);
+                        navigate(`/shop?q=${item}`);
                         setSearch("");
                         setShowSuggestions(false);
                       }}
@@ -132,7 +132,7 @@ const suggestions = products.filter((item) =>
 
           {/* ================= CART ICON ================= */}
           <button
-            onClick={() => navigate("/app/cart")}
+            onClick={() => navigate("/cart")}
             className="relative p-2 rounded-full hover:bg-gray-100 transition"
           >
             <ShoppingCart size={24} className="text-black" />
@@ -189,27 +189,31 @@ const suggestions = products.filter((item) =>
                   <div className="h-px bg-gray-200" />
 
                   {/* ACTIONS */}
-                  <button
-                    onClick={() => {
-                      setProfileOpen(false);
-                      navigate("/app/profile");
-                    }}
-                    className="w-full px-4 py-3 text-left text-sm
-                               hover:bg-red-50 hover:text-red-600 transition"
-                  >
-                    My Profile
-                  </button>
+                  {user.role !== "admin" && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setProfileOpen(false);
+                          navigate("/profile");
+                        }}
+                        className="w-full px-4 py-3 text-left text-sm
+                                   hover:bg-red-50 hover:text-red-600 transition"
+                      >
+                        My Profile
+                      </button>
 
-                  <button
-                    onClick={() => {
-                      setProfileOpen(false);
-                      navigate("/app/orders");
-                    }}
-                    className="w-full px-4 py-3 text-left text-sm
-                               hover:bg-red-50 hover:text-red-600 transition text-gray-700"
-                  >
-                    My Orders
-                  </button>
+                      <button
+                        onClick={() => {
+                          setProfileOpen(false);
+                          navigate("/orders");
+                        }}
+                        className="w-full px-4 py-3 text-left text-sm
+                                   hover:bg-red-50 hover:text-red-600 transition text-gray-700"
+                      >
+                        My Orders
+                      </button>
+                    </>
+                  )}
 
                   <button
                     onClick={() => {
@@ -237,13 +241,13 @@ const suggestions = products.filter((item) =>
           </button>
 
           {/* Logo */}
-          <NavLink to="/app">
+          <NavLink to="/">
             <img src="/assets/logo/logo.webp" alt="Logo" className="h-14" />
           </NavLink>
 
           {/* Shop -> Cart in Mobile */}
           <button
-            onClick={() => navigate("/app/cart")}
+            onClick={() => navigate("/cart")}
             className="relative p-2 rounded-full hover:bg-gray-100 transition"
           >
             <ShoppingCart size={24} className="text-black" />
@@ -293,7 +297,7 @@ const suggestions = products.filter((item) =>
           <div
             key={i}
             onClick={() => {
-              navigate(`/app/shop?q=${item}`);
+              navigate(`/shop?q=${item}`);
               setSearch("");
               setShowSuggestions(false);
             }}
@@ -353,27 +357,31 @@ const suggestions = products.filter((item) =>
         </div>
       </div>
 
+      {user.role !== "admin" && (
+        <div className="mt-4 flex gap-3">
+          <button
+            onClick={() => {
+              setOpen(false);
+              navigate("/profile");
+            }}
+            className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
+          >
+            My Profile
+          </button>
+
+          <button
+            onClick={() => {
+              setOpen(false);
+              navigate("/orders");
+            }}
+            className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
+          >
+            My Orders
+          </button>
+        </div>
+      )}
+
       <div className="mt-4 flex gap-3">
-        <button
-          onClick={() => {
-            setOpen(false);
-            navigate("/app/profile");
-          }}
-          className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
-        >
-          My Profile
-        </button>
-
-        <button
-          onClick={() => {
-            setOpen(false);
-            navigate("/app/orders");
-          }}
-          className="flex-1 py-2 text-sm rounded-lg bg-gray-100"
-        >
-          My Orders
-        </button>
-
         <button
           onClick={() => {
             setOpen(false);
@@ -409,10 +417,10 @@ const suggestions = products.filter((item) =>
 {/* ================= NAV LINKS ================= */}
 <div className="flex flex-col gap-1 px-4 font-medium">
  {[
-  { name: "Home", path: "/app", icon: Home, end: true },
-  { name: "About", path: "/app/about", icon: Info },
-  { name: "Contact", path: "/app/contact", icon: Phone },
-  { name: "Shop", path: "/app/shop", icon: ShoppingBag },
+  { name: "Home", path: "/", icon: Home, end: true },
+  { name: "About", path: "/about", icon: Info },
+  { name: "Contact", path: "/contact", icon: Phone },
+  { name: "Shop", path: "/shop", icon: ShoppingBag },
 ].map((item) => {
   const Icon = item.icon;
   return (

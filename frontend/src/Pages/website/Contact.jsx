@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { useAppContext } from "../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../context/AppContext";
 
 export default function Contact() {
   const { contactInfo, addMessage } = useAppContext();
@@ -62,7 +62,7 @@ export default function Contact() {
       {/* ===== TOP BANNER ===== */}
       <section className="relative h-[40vh] md:h-[60vh] overflow-hidden">
         <img
-          src="/assets/images/contact-img/contact-bg.webp"
+          src={getImageUrl(contactInfo?.banner) || "/assets/images/contact-img/contact-bg.webp"}
           alt="Contact Banner"
           loading="eager"
           decoding="async"

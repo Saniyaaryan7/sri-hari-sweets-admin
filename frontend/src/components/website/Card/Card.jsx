@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import { useAuth } from "../../../context/AuthContext";
 
 function Card({ item }) {
@@ -33,9 +33,9 @@ function Card({ item }) {
     <div className="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-gray-100 flex flex-col h-full">
       
       {/* IMAGE LINK */}
-      <Link to={`/app/product/${item.id}`} className="relative h-48 overflow-hidden block">
+      <Link to={`/product/${item.id}`} className="relative h-48 overflow-hidden block">
         <img
-          src={item.image || item.img}
+          src={getImageUrl(item.image || item.img)}
           alt={item.name}
           loading="lazy"
           decoding="async"
@@ -48,7 +48,7 @@ function Card({ item }) {
 
       {/* CONTENT */}
       <div className="p-5 flex flex-col flex-1">
-        <Link to={`/app/product/${item.id}`} className="block text-center flex-1">
+        <Link to={`/product/${item.id}`} className="block text-center flex-1">
           <h3 className="text-lg font-bold text-gray-900 line-clamp-1 group-hover:text-rose-600 transition">
             {item.name}
           </h3>

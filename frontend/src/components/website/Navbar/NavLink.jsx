@@ -18,20 +18,20 @@ function NavLinks({ onClick }) {
 
   return (
     <>
-      <NavLink to="/app" onClick={onClick} className={linkClass}>
+      <NavLink to="/" onClick={onClick} className={linkClass}>
         Home
       </NavLink>
 
-      <NavLink to="/app/about" onClick={onClick} className={linkClass}>
+      <NavLink to="/about" onClick={onClick} className={linkClass}>
         About
       </NavLink>
 
-      <NavLink to="/app/contact" onClick={onClick} className={linkClass}>
+      <NavLink to="/contact" onClick={onClick} className={linkClass}>
         Contact
       </NavLink>
 
      
-      <NavLink to="/app/shop" onClick={onClick} className={linkClass}>
+      <NavLink to="/shop" onClick={onClick} className={linkClass}>
         Shop
       </NavLink>
     </>

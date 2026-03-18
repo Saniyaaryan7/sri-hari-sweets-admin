@@ -29,7 +29,7 @@ export default function Checkout() {
 
     if (result.success) {
       setSuccess(true);
-      setTimeout(() => navigate("/app/orders"), 3000);
+      setTimeout(() => navigate("/orders"), 3000);
     } else {
       alert("Failed to place order. Please try again.");
     }
@@ -57,7 +57,7 @@ export default function Checkout() {
     return (
       <div className="min-h-screen pt-32 text-center">
         <h2 className="text-2xl font-bold">Your cart is empty</h2>
-        <button onClick={() => navigate("/app/shop")} className="mt-4 text-rose-600 font-bold underline">Go to Shop</button>
+        <button onClick={() => navigate("/shop")} className="mt-4 text-rose-600 font-bold underline">Go to Shop</button>
       </div>
     );
   }
@@ -66,7 +66,7 @@ export default function Checkout() {
     <div className="min-h-screen bg-[#FAFAFA] pt-32 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         <button 
-          onClick={() => navigate("/app/cart")}
+          onClick={() => navigate("/cart")}
           className="flex items-center gap-2 text-gray-500 hover:text-rose-600 transition mb-8 font-medium"
         >
           <ArrowLeft size={18} />

@@ -150,7 +150,7 @@ export default function Sidebar({ open, setOpen }) {
 
           {/*  Website View */}
           <MenuItem
-            to="/app"
+            to="/"
             icon={Globe}
             text="Website View"
             onClick={closeSidebar}

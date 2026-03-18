@@ -17,7 +17,7 @@ export default function PublicRoute({ children }) {
   }
 
   if (user?.role === "user") {
-    return <Navigate to="/app" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;

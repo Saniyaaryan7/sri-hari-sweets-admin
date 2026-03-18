@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Save, Image as ImageIcon, Plus, Trash2, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import axios from "axios";
 
 export default function AboutManagement() {
@@ -310,7 +310,7 @@ function ImageUploadField({ image, onUpload, isUploading }) {
     <div className="space-y-3">
       <div className="relative aspect-video rounded-xl bg-gray-50 border-2 border-dashed border-gray-200 overflow-hidden group">
         {image ? (
-          <img src={image} alt="Preview" className="w-full h-full object-cover" />
+          <img src={getImageUrl(image)} alt="Preview" className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-2">
             <ImageIcon size={32} />

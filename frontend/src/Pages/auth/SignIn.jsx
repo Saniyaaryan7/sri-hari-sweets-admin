@@ -22,7 +22,7 @@ export default function Login() {
     }
 
     if (user.role === "user") {
-      navigate("/app", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [user, navigate]);
 

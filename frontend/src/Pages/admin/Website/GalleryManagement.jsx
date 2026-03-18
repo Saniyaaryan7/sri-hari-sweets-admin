@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Plus, Trash2, Image as ImageIcon, CheckCircle2, AlertCircle, X, Loader2 } from "lucide-react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import ConfirmationModal from "../../../components/admin/ConfirmationModal";
 
 export default function GalleryManagement() {
@@ -105,7 +105,7 @@ export default function GalleryManagement() {
                   <div className="relative aspect-square rounded-2xl bg-gray-50 border-2 border-dashed border-gray-200 overflow-hidden group">
                     {newImage ? (
                       <>
-                        <img src={newImage} alt="Preview" className="w-full h-full object-cover" />
+                        <img src={getImageUrl(newImage)} alt="Preview" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
                           <button
                             type="button"
@@ -175,7 +175,7 @@ export default function GalleryManagement() {
                 {gallery.map((item) => (
                   <div key={item.id} className="group relative aspect-square bg-gray-50 rounded-2xl shadow-sm overflow-hidden border-2 border-white hover:border-[#1F4E5F]/20 transition-all text-center">
                     {item.image ? (
-                      <img src={item.image} alt="" className="w-full h-full object-cover transition duration-500 group-hover:scale-110" />
+                      <img src={getImageUrl(item.image)} alt="" className="w-full h-full object-cover transition duration-500 group-hover:scale-110" />
                     ) : (
                       <div className="flex flex-col items-center justify-center h-full text-gray-300">
                         <ImageIcon size={32} />

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import {
     Plus, Trash2, Edit3, Save, X,
     Image as ImageIcon, Upload, CheckCircle2,
@@ -161,7 +161,7 @@ const SpecialitiesManagement = () => {
                                             <div className="w-full aspect-video rounded-2xl bg-gray-50 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center overflow-hidden transition-all group-hover:border-[#1F4E5F] group-hover:bg-[#1F4E5F]/5">
                                                 {formData.image ? (
                                                     <>
-                                                        <img src={formData.image} className="w-full h-full object-cover transition-transform group-hover:scale-105" alt="Preview" />
+                                                        <img src={getImageUrl(formData.image)} className="w-full h-full object-cover transition-transform group-hover:scale-105" alt="Preview" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                                             <Upload className="text-white" size={32} />
                                                         </div>
@@ -192,7 +192,7 @@ const SpecialitiesManagement = () => {
                                                 value={formData.link}
                                                 onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                                                 className="w-full pl-12 pr-4 py-3 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-[#1F4E5F] transition-all font-medium text-[#4B2E39]"
-                                                placeholder="/app/shop/category/cakes"
+                                                placeholder="/shop/category/cakes"
                                             />
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@ const SpecialitiesManagement = () => {
                             {specialities.map((item) => (
                                 <div key={item.id} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 group transition-all hover:shadow-md h-fit">
                                     <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
-                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                        <img src={getImageUrl(item.image)} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                                         <div className="absolute top-3 right-3 flex gap-2">
                                             <button
                                                 onClick={() => startEdit(item)}

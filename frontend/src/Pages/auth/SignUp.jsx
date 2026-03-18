@@ -39,7 +39,7 @@ export default function SignUp() {
     setLoading(true);
     const result = await signup(name, email, password);
     if (result.success) {
-      navigate("/app", { replace: true });
+      navigate("/", { replace: true });
     } else {
       setError(result.message);
     }

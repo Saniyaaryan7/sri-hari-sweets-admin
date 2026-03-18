@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Plus, Pencil, Trash2, Image as ImageIcon, ExternalLink, X, AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
-import { useAppContext } from "../../../context/AppContext";
+import { useAppContext, getImageUrl } from "../../../context/AppContext";
 import ConfirmationModal from "../../../components/admin/ConfirmationModal";
 
 export default function HeroManagement() {
@@ -145,7 +145,7 @@ export default function HeroManagement() {
                     <div className="relative aspect-video rounded-xl bg-gray-100 border-2 border-dashed border-gray-200 overflow-hidden group">
                       {currentSlide.image ? (
                         <>
-                          <img src={currentSlide.image} alt="Preview" className="w-full h-full object-cover" />
+                          <img src={getImageUrl(currentSlide.image)} alt="Preview" className="w-full h-full object-cover" />
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
                             <button
                               type="button"
