@@ -20,7 +20,7 @@ export default function Topbar({ toggle }) {
           className="md:hidden bg-transparent p-0 border-none"
         >
           <img
-            src="/assets/icons/hamburger.svg"
+            src="/assets/Icons/hamburger.svg"
             alt="menu"
             loading="eager"
             decoding="async"
